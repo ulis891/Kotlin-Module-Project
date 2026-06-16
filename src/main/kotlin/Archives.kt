@@ -12,23 +12,29 @@ class Archives() : Menu{
         return null
     }
 
-    override fun showMenu() {
-        println("Введите цифру команды или номер архива")
-        println("0. Создать архив для заметок")
-        if (archives.isEmpty()){
-            println("-. У Вас нет архивов с заметками")
-1        }
-        else{
-        for (i in 0 until getSize()){
-            println("${i+1}. ${archives[i].name}")
-            }
-        }
-        println("${getSize() + 1}. для выхода")
+    fun isEmpty(): Boolean{
+        return archives.isEmpty()
     }
+
+//    override fun showMenu() {
+//        println("Введите цифру команды или номер архива")
+//        println("0. Создать архив для заметок")
+//        if (this.isEmpty()){
+//            println("-. У Вас нет архивов с заметками")
+//1        }
+//        else{
+//        for (i in 0 until getSize()){
+//            println("${i+1}. ${archives[i].name}")
+//            }
+//        }
+//        println("${getSize() + 1}. для выхода")
+//    }
 
 
     override fun makeElement(){
-        var name = inputText("Введите название Архива",false)
+        var name = inputText("Введите название Архива",false)?: run {
+            println("Произошла непредвиденная ошибка. Попробуем еще раз.")
+            return makeElement()}
         archives.add(Archive(name))
     }
 
