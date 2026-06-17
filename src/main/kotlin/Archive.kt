@@ -1,33 +1,21 @@
-class Archive (val name: String): Menu{
+class Archive (val name: String, ): Menu, Showable{
+    override var exitFlag: Boolean = false
 
-    var notes: MutableList<Note> = mutableListOf()
+//    override var itemList: MutableList<Note> = mutableListOf()
+    private val _archives: MutableList<Note> = mutableListOf()
+    override var itemList: MutableList<Showable>
+        get() = _archives as MutableList<Showable>
+        set(value){
+            _archives.clear()
+            _archives.addAll(value.filterIsInstance<Note>())
+        }
 
     override fun toString(): String {
         return name
     }
 
-    fun getSize(): Int {
-        return notes.size
-    }
-//    override fun showMenu() {
-//        println("Введите цифру команды или номер заметки")
-//        println("0. Создать заметку")
-//        if (notes.isEmpty()){
-//            println("-. У Вас нет заметок в архиве")
-//            }
-//        else{
-//            for (i in 0 until getSize()){
-//                println("${i+1}. ${notes[i].name}")
-//            }
-//        }
-//        println("${getSize() + 1}. для выхода")
-//    }
-
-    override fun makeElement() {
-        TODO("Not yet implemented")
-    }
-
-    override fun exit(): Boolean {
-        TODO("Not yet implemented")
+    override fun makeElement(){
+        val input = inputText("Введите заметку")
+        itemList.add(Note(input))
     }
 }

@@ -1,21 +1,34 @@
 import java.util.Scanner
 
-interface Menu {
-    fun choiseMenu(){
+interface Showable {
+    fun showItem()
+}
 
+interface Menu: Showable {
+    var itemList: MutableList<Showable>
+    var exitFlag: Boolean
+    fun choiseMenu(input: Int, exitPoint: Int){
+        when(input){
+            0 -> this.makeElement()
+            in 1 until exitPoint -> this.itemList[input-1].showItem()
+            exitPoint -> exitFlag = true
+        }
     }
-    fun <T> showMenu(list: MutableList<T>) {
-        while (true) {
+
+    override fun showItem() {
+        exitFlag = false
+        while (!exitFlag) {
             println("Введите цифру команды или номер элемента")
             println("0. Создать")
-            if (list.isEmpty()) {
+            if (this.itemList.isEmpty()) {
                 println("-. У Вас нет созданных объектов")
             } else {
-                for (i in 0 until list.size) {
-                    println("${i + 1}. ${list[i]}")
+                for (i in 0 until this.itemList.size) {
+                    println("${i + 1}. ${this.itemList[i]}")
                 }
             }
-            println("${list.size + 1}. для выхода")
+            println("${this.itemList.size + 1}. для выхода")
+        choiseMenu(inputCommand(), this.itemList.size + 1)
         }
     }
 
@@ -28,19 +41,14 @@ interface Menu {
         return inputCommand()
     }
 
-    fun inputText(title: String, isEmpty: Boolean = true): String? {
+    fun inputText(title: String): String {
         println(title)
-        if (isEmpty) {
-            return Scanner(System.`in`).nextLine()
-        } else {
-            val input = Scanner(System.`in`).nextLine()
-            if (input.isNullOrBlank()){
-                println("Ввод не может быть пустым!")
-                return inputText(title,false)
-            }
-            return input
+        val input = Scanner(System.`in`).nextLine()
+        if (input.isNullOrBlank()){
+            println("Ввод не может быть пустым!")
+            return inputText(title)
         }
+        return input
     }
     fun makeElement()
-    fun exit(): Boolean
 }
