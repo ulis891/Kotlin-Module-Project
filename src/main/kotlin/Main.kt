@@ -1,7 +1,5 @@
-import kotlin.system.exitProcess
-
 fun main(args: Array<String>) {
-    val archiveList: DataBase = DataBase()
+    val archiveList = DataBase()
     archiveList.showItem()
 }
 

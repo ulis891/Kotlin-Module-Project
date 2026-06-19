@@ -5,9 +5,11 @@ interface Showable {
 }
 
 interface Menu: Showable {
+    val objectsName: String
+
     var itemList: MutableList<Showable>
     var exitFlag: Boolean
-    fun choiseMenu(input: Int, exitPoint: Int){
+    fun choiceMenu(input: Int, exitPoint: Int){
         when(input){
             0 -> this.makeElement()
             in 1 until exitPoint -> this.itemList[input-1].showItem()
@@ -16,19 +18,26 @@ interface Menu: Showable {
     }
 
     override fun showItem() {
+        var lastMenu = "* ВЫХОД *"
         exitFlag = false
         while (!exitFlag) {
+            println()
+            println("----------------------------------------")
             println("Введите цифру команды или номер элемента")
+            println("----------------------------------------")
             println("0. Создать")
             if (this.itemList.isEmpty()) {
-                println("-. У Вас нет созданных объектов")
+                println("-. У Вас нет созданных $objectsName")
             } else {
-                for (i in 0 until this.itemList.size) {
-                    println("${i + 1}. ${this.itemList[i]}")
+                for ((index, archive) in this.itemList.withIndex()) {
+                    println("${index+1}. $archive")
                 }
             }
-            println("${this.itemList.size + 1}. для выхода")
-        choiseMenu(inputCommand(), this.itemList.size + 1)
+            if (this !is DataBase){
+                lastMenu = "* НАЗАД *"
+            }
+            println("${this.itemList.size + 1}. $lastMenu")
+        choiceMenu(inputCommand(), this.itemList.size + 1)
         }
     }
 

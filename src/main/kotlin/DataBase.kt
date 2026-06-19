@@ -1,5 +1,6 @@
 class DataBase : Menu, Showable{
     override var exitFlag: Boolean = false
+    override val objectsName = "архивов"
     private val _archives: MutableList<Archive> = mutableListOf()
     override var itemList: MutableList<Showable>
         get() = _archives as MutableList<Showable>
@@ -18,10 +19,6 @@ class DataBase : Menu, Showable{
             return itemList[index] as Archive?
         }
         return null
-    }
-
-    fun isEmpty(): Boolean{
-        return itemList.isEmpty()
     }
 
     override fun makeElement(){

@@ -1,7 +1,8 @@
-class Archive (val name: String, ): Menu, Showable{
+class Archive(val name: String): Menu, Showable{
     override var exitFlag: Boolean = false
+    override val objectsName = "заметок"
 
-//    override var itemList: MutableList<Note> = mutableListOf()
+
     private val _archives: MutableList<Note> = mutableListOf()
     override var itemList: MutableList<Showable>
         get() = _archives as MutableList<Showable>

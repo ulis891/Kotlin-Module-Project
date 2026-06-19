@@ -6,7 +6,10 @@ class Note(val text: String): Showable {
     }
 
     override fun showItem() {
+        println()
+        println("----------------------")
         println(text)
+        println("----------------------")
     }
 
 }
