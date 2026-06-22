@@ -1,5 +1,4 @@
-class Note(val text: String): Showable {
-    val name: String = text.take(10)
+class Note(val name: String, val text: String): Showable {
 
     override fun toString(): String {
         return name
@@ -7,7 +6,9 @@ class Note(val text: String): Showable {
 
     override fun showItem() {
         println()
-        println("----------------------")
+        println("**********************")
+        println("Заметка: $name")
+        println()
         println(text)
         println("----------------------")
     }

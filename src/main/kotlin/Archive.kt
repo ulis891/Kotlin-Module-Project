@@ -16,7 +16,8 @@ class Archive(val name: String): Menu, Showable{
     }
 
     override fun makeElement(){
-        val input = inputText("Введите заметку")
-        itemList.add(Note(input))
+        val name = inputText("Введите название заметки")
+        val text = inputText("Введите текст заметки")
+        itemList.add(Note(name, text))
     }
 }
