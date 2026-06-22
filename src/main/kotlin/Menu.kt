@@ -36,19 +36,30 @@ interface Menu: Showable {
             if (this !is DataBase){
                 lastMenu = "* НАЗАД *"
             }
-            println("${this.itemList.size + 1}. $lastMenu")
-        choiceMenu(inputCommand(), this.itemList.size + 1)
+            val exitPoint = this.itemList.size + 1
+            println("$exitPoint. $lastMenu")
+        choiceMenu(inputCommand(exitPoint), exitPoint)
         }
     }
 
-    fun inputCommand(): Int {
-        val input = Scanner(System.`in`).nextLine().toIntOrNull()
-        if (input != null) {
-            return input
+    fun inputCommand(size: Int): Int {
+        when (val input = Scanner(System.`in`).nextLine().toIntOrNull()) {
+            null -> {
+                println("Команда должна быть числом!")
+                this.showItem()
+                return inputCommand(size)
+            }
+            !in 0..size -> {
+                println("Такого числа нет! Выберите от 0 до $size.")
+                this.showItem()
+                return inputCommand(size)
+            }
+            else -> {
+                return input
+            }
         }
-        println("Команда должна быть числом!")
-        return inputCommand()
     }
+
 
     fun inputText(title: String): String {
         println(title)
