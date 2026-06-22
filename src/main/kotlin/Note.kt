@@ -10,7 +10,7 @@ class Note(val name: String, val text: String): Showable {
         println("Заметка: $name")
         println()
         println(text)
-        println("----------------------")
+        println("**********************")
     }
 
 }
