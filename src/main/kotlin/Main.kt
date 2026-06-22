@@ -1,3 +1,5 @@
 fun main(args: Array<String>) {
-    println("Hello World!")
+    val archiveList = DataBase()
+    archiveList.showItem()
 }
+
